@@ -1,6 +1,6 @@
-#Vue.js starter
+# Vue.js starter
 
-##How to use
+### How to use
 
 
 Install
