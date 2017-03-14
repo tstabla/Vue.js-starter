@@ -7,10 +7,10 @@
 
 	<title>VueJS Starter</title>
 
-	<link rel='stylesheet' type='text/css' href='/assets/css/style.css?v=20170312'>
+	<link rel='stylesheet' type='text/css' href='/assets/css/style.css?v=20170314'>
 
 	<script>
-		var assetsVersion = '20170312';
+		var assetsVersion = '20170314';
 	</script>
 </head>
 <body>
@@ -25,7 +25,7 @@
 		</header>
 
 		<h1 class="main-title">
-			VueJS Starter
+			Vue.js Starter
 		</h1>
 
 		<nav class="main-menu">
@@ -37,8 +37,8 @@
 		</nav>
 
 		<div class="main-content">
-			<div class="view-page" v-bind:class="'view-page--' + $route.name">
-				<div class="js-width view-page__inner">
+			<div class="main-content__wrapper">
+				<div class="main-content__inner">
 					<transition name="fade-page">
 					  <keep-alive>
 					    <router-view></router-view>
@@ -49,6 +49,6 @@
 		</div>
 	</div>
 
-	<script src="/assets/js/app.js?v=20170312"></script>
+	<script src="/assets/js/app.js?v=20170314"></script>
 </body>
 </html>
