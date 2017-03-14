@@ -1,4 +1,9 @@
-# Vue.js starter
+# [Vue.js Starter](https://tstabla.github.io/Vue.js-starter/)
+
+> Minimalist starter for Vue 2 with Vue-router and Babel, which uses static templates by http request.
+
+
+[SEE DEMO](https://tstabla.github.io/Vue.js-starter/)
 
 ## How to use
 
