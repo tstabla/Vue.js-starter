@@ -1,6 +1,6 @@
 # Vue.js starter
 
-### How to use
+## How to use
 
 
 Install
@@ -23,7 +23,7 @@ Build prod assets
 npm run prod
 ```
 
-You can also set your own HOST and PORT for run dev server.
+You can also set your own HOST and PORT to run dev server.
 ```
 npm run dev --host=127.0.0.1 --port=8080
 ```
