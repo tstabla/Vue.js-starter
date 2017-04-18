@@ -9,9 +9,20 @@ Vue.use( VueRouter );
 Vue.use( VueResource );
 Vue.use( VeeValidate );
 
-const Page = ( htmlFileName, jsFileName, resolve, reason ) => {
-  Vue.http.get( `/views/${htmlFileName}.html?v=${window.assetsVersion}` ).then( ( response ) => {
+const Page = ( htmlFileSource, jsFileName, resolve, reason ) => {
+  let path = `/views/${htmlFileSource}.html?v=${window.assetsVersion}`;
+
+  if ( typeof htmlFileSource === 'object' ) {
+    path = `/views${htmlFileSource.base}${htmlFileSource.name}.html?v=${window.assetsVersion}`;
+  }
+
+  Vue.http.get( path ).then( ( response ) => {
     const file = jsFileName ? require( `bundle-loader!./views/${jsFileName}.js` ) : null;
+    if ( !response.body.match( /(main\-page\-container)/g ) ) {
+      resolve( undefined );
+
+      return;
+    }
 
     if ( file ) {
       file( ( data ) => {
@@ -31,6 +42,55 @@ const Page = ( htmlFileName, jsFileName, resolve, reason ) => {
     }
   }, ( response ) => {
     // error callback
+  } );
+};
+
+const Route = ( jsFileName, to, from, next ) => {
+  if ( !Route.cachedNames ) {
+    Route.cachedNames = [];
+  }
+
+  for ( let name of Route.cachedNames ) {
+    if ( to.params.pageName === name ) {
+      next( { name: to.params.pageName } );
+
+      return;
+    }
+  }
+
+  const basePathIndex = ( to.path ).indexOf( to.params.pageName );
+
+  let htmlFilePath = to.params.pageName;
+
+  if ( basePathIndex !== -1 ) {
+    const basePath = to.path.slice( 0, basePathIndex );
+
+    htmlFilePath = {
+      base: basePath,
+      name: to.params.pageName
+    };
+  }
+
+  new Promise( ( resolve, reject ) => {
+    return Page.call( null, htmlFilePath, jsFileName, resolve, reject );
+  } ).then( ( result ) => {
+    if ( !result ) {
+      next( { name: 'error-404' } );
+    } else {
+      router.addRoutes( [
+        {
+          name: to.params.pageName,
+          path: to.fullPath,
+          component: result
+        }
+      ] );
+
+      Route.cachedNames.push( to.params.pageName );
+
+      next( { name: to.params.pageName } );
+    }
+  }, ( reason ) => {
+    // err
   } );
 };
 
