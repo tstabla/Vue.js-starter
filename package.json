@@ -8,7 +8,7 @@
   },
   "private": true,
   "scripts": {
-    "clean": "find 'web/assets/js' 'web/assets/css' -type f -not -name '.gitkeep' | xargs rm && rm -rf web/assets/cached_uglify",
+    "clean": "find 'web/assets/js' 'web/assets/css' -type f -not -name '.gitkeep' | xargs rm -rf && rm -rf web/assets/cached_uglify",
     "build": "npm run clean && webpack --config webpack.config.js",
     "prod": "export NODE_ENV=production && npm run build",
     "dev": "export NODE_ENV=development && nodemon --watch web --ext html server.dev.js",
