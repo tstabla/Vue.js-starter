@@ -31,8 +31,8 @@
 		<nav class="main-menu">
 			<ul>
 				<li><router-link :to="{name: 'index'}" exact>Home</router-link></li>
-				<li><router-link :to="{name: 'subpage-1'}">Page 1</router-link></li>
-				<li><router-link :to="{name: 'subpage-2'}">Page 2</router-link></li>
+				<li><router-link :to="{name: 'subpage-1'}" exact>Page 1</router-link></li>
+				<li><router-link to="/subpage/subpage-of-subpage">Page 2</router-link></li>
 			</ul>
 		</nav>
 

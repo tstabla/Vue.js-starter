@@ -18,8 +18,9 @@ const Page = ( htmlFileSource, jsFileName, resolve, reason ) => {
 
   Vue.http.get( path ).then( ( response ) => {
     const file = jsFileName ? require( `bundle-loader!./views/${jsFileName}.js` ) : null;
-    if ( !response.body.match( /(main\-page\-container)/g ) ) {
-      resolve( undefined );
+
+    if ( !response.body.match( /(default\-page)/g ) ) {
+      reason( 'page not found' );
 
       return;
     }
@@ -90,7 +91,7 @@ const Route = ( jsFileName, to, from, next ) => {
       next( { name: to.params.pageName } );
     }
   }, ( reason ) => {
-    // err
+    next( { name: 'error-404' } );
   } );
 };
 
@@ -98,17 +99,16 @@ const routes = [
   {
     path     : '/',
     name     : 'index',
-    component: Page.bind( null, 'index', null )
+    component: Page.bind( null, 'index', null ) // htmlFileSource - jsFileName
   },
   {
-    path     : '/page-1',
+    path     : '/subpage',
     name     : 'subpage-1',
-    component: Page.bind( null, 'subpage-1', 'subpage-1' )
+    component: Page.bind( null, 'subpage', 'subpage-1' ) // htmlFileSource - jsFileName
   },
   {
-    path     : '/page-2',
-    name     : 'subpage-2',
-    component: Page.bind( null, 'subpage-2', 'subpage-2' )
+    path     : '/subpage/:pageName',
+    beforeEnter: Route.bind( null, 'subpage-2' ) // jsFileName
   },
   {
     path     : '/404',
