@@ -13,12 +13,12 @@ config.context = __dirname;
 
 if ( process.env.NODE_ENV === 'development' ) {
   config.entry = {
-    app: [ './app/main.js', 'webpack-hot-middleware/client' ],
+    app: [ 'babel-polyfill', './app/main.js', 'webpack-hot-middleware/client' ],
     style: [ './app/styles/main.less', 'webpack-hot-middleware/client' ]
   };
 } else {
   config.entry = {
-    'app': './app/main.js',
+    'app': [ 'babel-polyfill', './app/main.js' ],
     'style': './app/styles/main.less',
   };
 }
