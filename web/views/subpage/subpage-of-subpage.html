@@ -1,9 +1,11 @@
-<section class="default-page page-subpage-2">
-  <div class="default-page__inner">
+<div class="js-page-tmpl">
+  <section class="default-page page-subpage-2">
+    <div class="default-page__inner">
 
-    <div class="entry">
-      Page with variable number {{ pageNumber }}
+      <div class="entry">
+        Page with variable number {{ pageNumber }}
+      </div>
+
     </div>
-
-  </div>
-</section>
+  </section>
+</div>

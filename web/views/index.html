@@ -1,9 +1,11 @@
-<section class="default-page page-index">
-  <div class="default-page__inner">
+<div class="js-page-tmpl">
+  <section class="default-page page-index">
+    <div class="default-page__inner">
 
-    <div class="entry">
-      Home
+      <div class="entry">
+        Home
+      </div>
+
     </div>
-
-  </div>
-</section>
+  </section>
+</div>
