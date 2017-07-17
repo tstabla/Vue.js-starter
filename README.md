@@ -4,7 +4,7 @@
 
 [SEE DEMO](https://tstabla.github.io/Vue.js-starter/)
 
-Sometimes maybe you need use some PHP scripts, then just use files with .php extension and also change file extensions in */app/main.js* on line *13 & 16*.
+Sometimes maybe you need use some PHP scripts, then just use files with .php extension and also change line *8* in */app/app-router.js* or remove it.
 
 Switch to branch *`php`* for example.
 
