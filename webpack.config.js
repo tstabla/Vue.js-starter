@@ -18,12 +18,12 @@ config.context = __dirname;
 
 if ( NODE_ENV === 'development' ) {
   config.entry = {
-    app: [ 'babel-polyfill', './app/main.js', 'webpack-hot-middleware/client' ],
+    app: [ 'babel-polyfill', './app/app.js', 'webpack-hot-middleware/client' ],
     style: [ './app/styles/main.less', 'webpack-hot-middleware/client' ]
   };
 } else {
   config.entry = {
-    'app': [ 'babel-polyfill', './app/main.js' ],
+    'app': [ 'babel-polyfill', './app/app.js' ],
     'style': './app/styles/main.less',
   };
 }
@@ -50,18 +50,18 @@ config.resolve = {
     path.resolve( __dirname, 'node_modules' )
   ],
   extensions: [ '.js' ],
-  alias: {
-    'jquery': './app/libraries/jquery.min.js'
-  }
+  // alias: {
+  //   'jquery': './app/libraries/jquery.min.js'
+  // }
 };
 
 config.plugins = [
   new ExtractTextPlugin( { filename: 'css/[name].css', allChunks: true } ),
-  new webpack.ProvidePlugin( {
-    $: 'jquery',
-    jQuery: 'jquery',
-    'window.jQuery': 'jquery',
-  } )
+  // new webpack.ProvidePlugin( {
+  //   $: 'jquery',
+  //   jQuery: 'jquery',
+  //   'window.jQuery': 'jquery',
+  // } )
 ];
 
 if ( NODE_ENV === 'development' ) {
@@ -70,11 +70,11 @@ if ( NODE_ENV === 'development' ) {
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.NamedModulesPlugin(),
     new ExtractTextPlugin( { filename: 'css/[name].css', allChunks: true } ),
-    new webpack.ProvidePlugin( {
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery',
-    } ),
+    // new webpack.ProvidePlugin( {
+    //   $: 'jquery',
+    //   jQuery: 'jquery',
+    //   'window.jQuery': 'jquery',
+    // } ),
   ];
 
   config.plugins = plugins.concat( config.plugins );
@@ -115,21 +115,54 @@ config.module = {
       test: /\.css$/,
       use: ExtractTextPlugin.extract( {
         fallback: 'style-loader',
-        use: 'css-loader!postcss-loader',
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              url: false
+            }
+          },
+          {
+            loader: 'postcss-loader'
+          }
+        ]
       } )
     },
     {
       test: /\.less$/,
       use: ExtractTextPlugin.extract( {
         fallback: 'style-loader',
-        use: 'css-loader!less-loader',
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              url: false
+            }
+          },
+          {
+            loader: 'less-loader'
+          }
+        ]
       } )
     },
     {
       test: /\.scss$/,
       use: ExtractTextPlugin.extract( {
         fallback: 'style-loader',
-        use: 'css-loader!postcss-loader!sass-loader',
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              url: false
+            }
+          },
+          {
+            loader: 'postcss-loader',
+          },
+          {
+            loader: 'sass-loader'
+          }
+        ]
       } )
     },
   ]
